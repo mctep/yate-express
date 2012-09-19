@@ -5,7 +5,6 @@ var yate = require(yatePath + 'yate.js');
 require(yatePath + 'actions.js');
 
 exports.__express = function(path, options, fn) {
-	var key = path + ':string';
 
 	if ('function' == typeof options) {
 		fn = options, options = {};
