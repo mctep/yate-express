@@ -28,10 +28,9 @@ exports.__express = function(path, options, fn) {
 			var yateJS = [
 				runtimeJS,
 				compiledJS,
-				'var data = ' + JSON.stringify(data),
 				'return yr.run("main", data, "")'
 			].join(';');
-			return new Function(yateJS)();
+			return new Function('data', yateJS)(data);
 		};
 	}
 
@@ -39,8 +38,10 @@ exports.__express = function(path, options, fn) {
 		fn = options, options = {};
 	}
 
+	var data = JSON.parse(JSON.stringify(options))
+
 	try {
-		fn(null, this.yateFn(options));
+		fn(null, this.yateFn(data));
 	} catch (err) {
 		fn(err);
 	}
